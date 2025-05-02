@@ -1,6 +1,6 @@
 # 🚀 Node.js Application Deployment Guide
 
-This repository is used for deploying a **Node.js application** on a **Linux server** using **PM2** for process management.
+This repository is used for deploying a **Node.js application** on a **Linux EC2 server** using **PM2** for process management.
 
 ---
 
@@ -24,97 +24,89 @@ This repository is used for deploying a **Node.js application** on a **Linux ser
 
 ## 📦 Prerequisites
 
-- A Linux server (e.g., Amazon EC2)
-- Port 80 (HTTP) opened in the security group
-- Git installed on the server
-- Node.js installed on the server
-- PM2 installed on the server
+- A Linux EC2 instance
+- Port 80 (or 3000) open in your security group
+- Basic knowledge of Linux terminal
 
 ---
 
-## 🛠️ Step-by-Step Setup
+## 🛠️ Deployment Steps
 
 ```bash
-# 1️⃣ Clone the Repository
+# 1️⃣ Connect to EC2 Instance
+ssh ec2-user@<your-ec2-public-ip>
 
-# SSH into your server and install Git
+# 2️⃣ Install Git
 sudo yum install git -y
 
-# Clone the repository
-git clone https://github.com/yourusername/your-repo-name.git
-cd your-repo-name
-
-# 2️⃣ Install Node.js and npm
-
-# Install Node.js and npm
+# 3️⃣ Install Node.js and npm
 curl -fsSL https://rpm.nodesource.com/setup_18.x | sudo bash -
 sudo yum install -y nodejs
 
-# 3️⃣ Install Dependencies
+# 4️⃣ Clone the Project Repository
+git clone https://github.com/yourusername/your-repo-name.git
+cd your-repo-name
 
-# Install all dependencies from the package.json
+# 5️⃣ Install Dependencies from package.json
 npm install
 
-# 4️⃣ Run the App
-
-# Start the app
+# 6️⃣ Start the App (interactive mode)
 npm start
+# App will be available at http://<your-ec2-ip>:3000
 
-# It will run on:
-# http://<your-server-ip>:3000
+# 7️⃣ Issue: App stops on logout or CTRL+C
+# To fix that, use PM2 (a process manager)
 
-# ⚠️ App Stops on Logout?
-
-# To keep the app running in the background:
-nohup npm start &
-
-# To store logs in a file:
-nohup npm start > output.log 2>&1 &
-
-# 🔍 Monitor or Stop the App
-
-# Check if the app is running:
-ps aux | grep index.js
-
-# Stop the app:
-pkill -f index.js
-
-# ♻️ Use PM2 to Keep App Running
-
-# 1️⃣ Install PM2
+# 8️⃣ Install PM2 Globally
 npm install -g pm2
 
-# 2️⃣ Start the App with PM2
+# 9️⃣ Run App with PM2
 pm2 start index.js --name node-app
 
-# PM2 will:
-# - Keep your app running continuously
-# - Restart the app in case of failure
-# - Monitor logs and CPU/memory usage
+# ✅ PM2 ensures your app:
+# - Runs continuously
+# - Restarts on crashes
+# - Provides monitoring and logs
 
-# 3️⃣ Optional PM2 Commands
-pm2 list                  # Show running apps
+# Optional PM2 Commands:
+pm2 list                  # View all apps
 pm2 logs node-app         # View logs
 pm2 restart node-app      # Restart app
 pm2 stop node-app         # Stop app
-pm2 delete node-app       # Delete app
-pm2 startup               # Enable PM2 startup on reboot
-pm2 save                  # Save running processes
+pm2 delete node-app       # Remove app
+pm2 save                  # Save current process list
+pm2 startup               # Enable PM2 on boot
+```
 
-# 🌐 Access the App
-# Once the app is running on port 80, you can access it in the browser by navigating to:
-# http://<your-ec2-public-ip>
+---
 
-# 📁 File Structure
-# your-node-repo/
-# ├── index.js
-# ├── package.json
-# └── package-lock.json
+## 🌐 Access the App
 
-# 📌 Notes
-# - Port 80 requires sudo if you're not using PM2 or another process manager with permission elevation.
-# - Ensure security group allows inbound access on port 80.
+Once the app is running via PM2 on your EC2 instance, access it in your browser:
 
-# 📷 Sample Output
-# Once everything is up and running, the app will show:
-# Welcome to Sample Node.js Application
+```
+http://<your-ec2-public-ip>
+```
+
+Make sure the port is open in your security group (default is 3000 unless you set it to 80).
+
+---
+
+## 📁 Project Structure
+
+```
+your-nodejs-app/
+├── index.js
+├── package.json
+└── package-lock.json
+```
+
+---
+
+## ✅ Summary
+
+- Node.js app runs using `npm start`
+- PM2 ensures it stays running continuously
+- Port 3000 (or 80 if changed) must be open to access it via browser
+
+---

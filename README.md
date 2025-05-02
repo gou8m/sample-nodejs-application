@@ -64,10 +64,10 @@ npm install
 ### 6️⃣ Start the App (interactive mode)
 ```bash
 npm start
-# App will be available at http://<your-ec2-ip>:3000
+# App will be available at http://<your-ec2-ip>
 ```
 ### 7️⃣ Issue: App stops on logout or CTRL+C
-### To fix that, use PM2 (a process manager)
+#### To fix that, use PM2 (a process manager)
 
 ### 8️⃣ Install PM2 Globally
 ```bash

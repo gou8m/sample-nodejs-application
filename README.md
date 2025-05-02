@@ -52,8 +52,8 @@ sudo dnf install -y nodejs
 
 ### 4️⃣ Clone the Project Repository
 ```bash
-git clone https://github.com/yourusername/your-repo-name.git
-cd your-repo-name
+git clone git@github.com:gou8m/sample-nodejs-application.git
+cd sample-nodejs-application
 ```
 
 ### 5️⃣ Install Dependencies from package.json

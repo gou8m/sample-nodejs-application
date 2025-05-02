@@ -64,11 +64,10 @@ npm install
 ### 6️⃣ Start the App (interactive mode)
 ```bash
 npm start
-```
 # App will be available at http://<your-ec2-ip>:3000
-
+```
 ### 7️⃣ Issue: App stops on logout or CTRL+C
-# To fix that, use PM2 (a process manager)
+### To fix that, use PM2 (a process manager)
 
 ### 8️⃣ Install PM2 Globally
 ```bash
@@ -80,12 +79,14 @@ npm install -g pm2
 pm2 start index.js --name node-app
 ```
 
-# ✅ PM2 ensures your app:
-# - Runs continuously
-# - Restarts on crashes
-# - Provides monitoring and logs
+### ✅ PM2 ensures your app:
+### - Runs continuously
+### - Restarts on crashes
+### - Provides monitoring and logs
 
-# Optional PM2 Commands:
+### 🔄 Optional PM2 Commands
+
+```bash
 pm2 list                  # View all apps
 pm2 logs node-app         # View logs
 pm2 restart node-app      # Restart app
@@ -95,35 +96,9 @@ pm2 save                  # Save current process list
 pm2 startup               # Enable PM2 on boot
 ```
 
----
-
-## 🌐 Access the App
-
-Once the app is running via PM2 on your EC2 instance, access it in your browser:
-
+### 🌐 Access the App
+### Once the app is running via PM2 on your EC2 instance, access it in your browser:
 ```
 http://<your-ec2-public-ip>
 ```
 
-Make sure the port is open in your security group (default is 3000 unless you set it to 80).
-
----
-
-## 📁 Project Structure
-
-```
-your-nodejs-app/
-├── index.js
-├── package.json
-└── package-lock.json
-```
-
----
-
-## ✅ Summary
-
-- Node.js app runs using `npm start`
-- PM2 ensures it stays running continuously
-- Port 3000 (or 80 if changed) must be open to access it via browser
-
----

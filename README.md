@@ -32,36 +32,53 @@ This repository is used for deploying a **Node.js application** on a **Linux EC2
 
 ## 🛠️ Deployment Steps
 
-```bash
+
 # 1️⃣ Connect to EC2 Instance
+
+```bash
 ssh ec2-user@<your-ec2-public-ip>
+```
 
 # 2️⃣ Install Git
+
+```bash
 sudo yum install git -y
+```
 
 # 3️⃣ Install Node.js and npm
-curl -fsSL https://rpm.nodesource.com/setup_18.x | sudo bash -
-sudo yum install -y nodejs
+```bash
+sudo dnf install -y nodejs
+```
 
 # 4️⃣ Clone the Project Repository
+```bash
 git clone https://github.com/yourusername/your-repo-name.git
 cd your-repo-name
+```
 
 # 5️⃣ Install Dependencies from package.json
+```bash
 npm install
+```
 
 # 6️⃣ Start the App (interactive mode)
+```bash
 npm start
+```
 # App will be available at http://<your-ec2-ip>:3000
 
 # 7️⃣ Issue: App stops on logout or CTRL+C
 # To fix that, use PM2 (a process manager)
 
 # 8️⃣ Install PM2 Globally
+```bash
 npm install -g pm2
+```
 
 # 9️⃣ Run App with PM2
+```bash
 pm2 start index.js --name node-app
+```
 
 # ✅ PM2 ensures your app:
 # - Runs continuously
